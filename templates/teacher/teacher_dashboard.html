@@ -1,0 +1,118 @@
+{% extends "teacher/base_teacher.html" %}
+
+{% block content %}
+
+
+
+
+
+<div class="card card-preview">
+    <div class="card-inner">
+        <div class="card-inner">
+            <div class="team">
+
+                <div class="user-card user-card-s2">
+                    <div class="user-avatar md bg-primary">
+                        <span>{{ teacher_info.teacher.first_name.0 }}{{ teacher_info.teacher.last_name.0 }}</span>
+                        <div class="status dot dot-lg dot-success"></div>
+                    </div>
+                    <div class="user-info">
+                        <h6>Welcome, {{ teacher_info.teacher.first_name }} {{ teacher_info.teacher.last_name }} !</h6>
+                    </div>
+                </div>
+                <div class="team-details">
+                    <p>{{ teacher_info.teacher.email }}</p>
+                </div>
+            </div><!-- .team -->
+        </div><!-- .card-inner -->
+    </div><!-- .card -->
+</div>
+<br>
+
+<div class="card card-preview">
+
+    <div class="card-inner">
+        <div class="nk-block-head-content">
+            <h4 class="nk-block-title">Students </h4>
+<!--            <div class="nk-block-des">-->
+<!--                <p>Displayed all the students</p>-->
+<!--            </div>-->
+        </div>
+            <form method="POST" action="#" class="my-4">
+    {% csrf_token %}
+    <div class="row align-items-end">
+        <div class="col-md-2 mb-3">
+            <label for="division" class="form-label">Select Division:</label>
+            <select name="division" id="division" class="form-select">
+    <option value="" disabled selected hidden>-- Select Division --</option>
+    <option value="A">A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+    <!-- Add more division options -->
+</select>
+        </div>
+        <div class="col-md-2 mb-3">
+            <label for="language" class="form-label">Select Language:</label>
+            <select name="language" id="language" class="form-select">
+                <option value="" disabled selected>-- Select Language --</option>
+                <option value="Java">Java</option>
+                <option value="C">C</option>
+                <option value="C++">C++</option>
+                <!-- Add more language options -->
+            </select>
+        </div>
+        <div class="col-md-1 mb-3">
+            <button class="btn btn-primary w-100" type="submit">Filter</button>
+        </div>
+    </div>
+</form>
+        <br>
+        <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
+            <thead>
+            <tr class="nk-tb-item nk-tb-head">
+                <th class="nk-tb-col"><span class="sub-text">User</span></th>
+                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Date of Birth</span></th>
+                <th class="nk-tb-col tb-col-md"><span class="sub-text">Phone</span></th>
+                <th class="nk-tb-col tb-col-lg"><span class="sub-text">Designation</span></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in students %}
+            <tr class="nk-tb-item">
+                <td class="nk-tb-col">
+                    <div class="user-card">
+                        <div class="user-avatar bg-dim-primary d-none d-sm-flex">
+                            <span>{{ i.student.first_name.0 }}{{ i.student.last_name.0 }}</span>
+                        </div>
+                        <div class="user-info">
+                            <span class="tb-lead">{{ i.student.first_name }} {{ i.student.last_name }}<span
+                                    class="dot dot-success d-md-none ml-1"></span></span>
+                            <span>{{i.student.email}}</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="nk-tb-col tb-col-mb" data-order="35040.34">
+                    <span class="tb-amount">{% if i.date_of_birth %} {{ i.date_of_birth }} {% else %} - {% endif %}</span>
+                </td>
+                <td class="nk-tb-col tb-col-md">
+                    <span>{{i.student.phone_number}}</span>
+                </td>
+                <td class="nk-tb-col tb-col-lg">
+                    <span>{% if i.designation %} {{i.designation}} {% else %} - {% endif %}</span>
+                </td>
+            </tr><!-- .nk-tb-item  -->
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+</script>
+
+{% endblock %}
